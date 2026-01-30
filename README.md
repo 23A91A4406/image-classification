@@ -11,6 +11,11 @@ This project implements an end-to-end image classification pipeline using transf
 - Evaluate the trained model using standard metrics
 - Deploy the model as a REST API using FastAPI and Docker.
 
+## Tech Stack
+- PyTorch — Deep learning library
+- FastAPI — API framework
+- Docker & Docker Compose — Containerization
+- Git LFS — Large file handling for the model
 
 ## Model & Dataset
 - Model: ResNet50 (pre-trained on ImageNet)
@@ -18,8 +23,6 @@ This project implements an end-to-end image classification pipeline using transf
 - Dataset: Caltech-101
 - Number of Classes: 10
 - Framework: PyTorch
-
-
 
 ## Project Structure
 ```text
@@ -108,9 +111,29 @@ The trained model is deployed using FastAPI.
 ### Docker & Deployment
 The application is fully containerized using Docker and managed with Docker Compose.
 
+### API Screenshots
+
+### Health Check Endpoint
+The `/health` endpoint is used to verify that the API service is running correctly inside the Docker container.
+
+![Health Check](screenshots/health_check.png)
+
+### Image Classification Prediction
+The `/predict` endpoint accepts an image file and returns the predicted class along with a confidence score.
+
+![Prediction Result](screenshots/prediction.png)
+
+### FastAPI Swagger Documentation
+Interactive API documentation generated automatically by FastAPI.
+
+![Swagger UI](screenshots/swagger.png)
+
+
 ### Environment Variables (.env.example)
+```env
 API_PORT=8000
 MODEL_PATH=model/image_classifier.pth
+```
 
 ### Run the Application
 ```bash
