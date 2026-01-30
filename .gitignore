@@ -1,0 +1,9 @@
+# Ignore dataset
+data/
+
+# Ignore python cache
+__pycache__/
+*.pyc
+
+# Ignore local env
+.env
