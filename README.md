@@ -13,47 +13,54 @@ This project implements an end-to-end image classification pipeline using transf
 
 
 ## Model & Dataset
-- **Model**: ResNet50 (pre-trained on ImageNet)
-- **Technique**: Transfer Learning
-- **Dataset**: Caltech-101
-- **Number of Classes**: 10
-- **Framework**: PyTorch
+- Model: ResNet50 (pre-trained on ImageNet)
+- Technique: Transfer Learning
+- Dataset: Caltech-101
+- Number of Classes: 10
+- Framework: PyTorch
+
 
 
 ## Project Structure
+```text
 image-classification/
 │
 ├── data/
-│ ├── train/
-│ └── val/
+│   ├── train/
+│   └── val/
 │
 ├── model/
-│ └── image_classifier.pth
+│   └── image_classifier.pth
 │
 ├── results/
-│ └── metrics.json
+│   └── metrics.json
 │
 ├── src/
-│ ├── preprocess.py
-│ ├── train.py
-│ ├── evaluate.py
-│ ├── api.py
-│ └── config.py
+│   ├── preprocess.py
+│   ├── train.py
+│   ├── evaluate.py
+│   ├── api.py
+│   └── config.py
 │
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
 ├── .env.example
 └── README.md
-
+```
 
 ## Pipeline Steps
 
 ### Data Preprocessing
-- Automatically downloads the Caltech-101 dataset
+- Prepares the Caltech-101 dataset for training
 - Selects 10 image classes
 - Splits data into training (80%) and validation (20%)
 - Organizes data into PyTorch-compatible directory structure
+> Note: For reproducibility, a prepared version of the dataset is included in this repository.  
+> Alternatively, the dataset can be automatically downloaded and prepared by running:
+```bash
+python src/preprocess.py
+```
 
 ### Data Augmentation
 Applied during training:
@@ -68,6 +75,8 @@ Applied during training:
 - Replaces final classification layer for 10 classes
 - Trains the model on the custom dataset
 - Saves trained model to `model/image_classifier.pth`
+
+> Note: The trained model file is tracked using Git Large File Storage (Git LFS) due to its size.
 
 
 ### Model Evaluation
@@ -89,10 +98,12 @@ The trained model is deployed using FastAPI.
 - POST /predict → Image classification endpoint
 
 #### Sample Response:
+```json
 {
   "predicted_class": "airplanes",
   "confidence": 0.99
 }
+```
 
 ### Docker & Deployment
 The application is fully containerized using Docker and managed with Docker Compose.
@@ -102,10 +113,22 @@ API_PORT=8000
 MODEL_PATH=model/image_classifier.pth
 
 ### Run the Application
+```bash
 docker-compose up --build
+```
+
+### Training the Model
+```bash
+python src/train.py
+```
+
+### Evaluating the Model
+```bash
+python src/evaluate.py
+```
 
 ### The API will be available at:
-http://localhost:8001
+http://localhost:8000
 
 ## Dependencies
 All required dependencies are listed in requirements.txt.
